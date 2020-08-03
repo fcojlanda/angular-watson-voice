@@ -27,7 +27,7 @@ export class WatsonComponent implements OnInit {
 
   setOptions(token: string): RecognizeStream {
     return {
-      token: token,
+      accessToken: token,
       format: true,
       extractResults: true,
       objectMode: true

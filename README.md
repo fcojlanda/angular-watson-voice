@@ -1,6 +1,8 @@
 # Angular Watson Voice
 
-An [IBM Watson](https://www.ibm.com/watson/) speech to text application in Angular and Node. Uses the [speech-javascript-sdk](https://github.com/watson-developer-cloud/speech-javascript-sdk) library for speech to text services in web browsers.
+This project is an update from [Angular Watson Voice](https://github.com/stevengregory/angular-watson-voice) by [stevengregory](https://github.com/stevengregory)
+
+An [IBM Watson](https://www.ibm.com/watson/) speech to text application in Angular and Node. Uses the [Watson APIs Node.js SDK](https://www.npmjs.com/package/ibm-watson) library for speech to text services in web browsers.
 
 ![Angular Watson Voice](https://i.imgur.com/aMOLZav.gif)
 
@@ -14,7 +16,7 @@ An [IBM Watson](https://www.ibm.com/watson/) speech to text application in Angul
 
     * Select Speech to Text and create a project.
 
-    * Copy the credentials to authenticate to your service instance (will be used later in `.env` config).
+    * Copy the credentials (API Key) to your service instance.
 
 1. Install the [Angular CLI](https://cli.angular.io/)
 
@@ -27,7 +29,7 @@ An [IBM Watson](https://www.ibm.com/watson/) speech to text application in Angul
 1. Clone this repository
 
     ```bash
-    git clone https://github.com/stevengregory/angular-watson-voice.git
+    git clone https://github.com/fcojlanda/angular-watson-voice
     cd angular-watson-voice
     ```
 
@@ -37,16 +39,10 @@ An [IBM Watson](https://www.ibm.com/watson/) speech to text application in Angul
     npm install
     ```
 
-1. Configure environment settings
+1. Configure API Key value
 
-    Create a `.env` file and place it in the root directory of the project. Add the following username & password and replace the values with your IBM Watson service credentials. No worries, the
-    file is in the `.gitignore` so it won't get pushed to the GitHub repository.
-
-    ```javascript
-    SPEECH_TO_TEXT_USERNAME=your_ibm_project_username
-    SPEECH_TO_TEXT_PASSWORD=your_ibm_project_password
-    ```
-
+    Copy the API Key from your Speech-To-Text service from your IBM Service platform. Replace <API_TOKEN> text located into the index.js file in the root server side by the real Api Key value with IBM Speech-To-Text credentials. No worries, the file is in the `.gitignore` so it won't get pushed to the GitHub repository.
+    
 ## Running the app locally
 
 1. Build the Angular app and launch the node server.

@@ -4,12 +4,12 @@
 
 const express = require('express');
 const app = express();
-const watson = require('watson-developer-cloud');
-const vcapServices = require('vcap_services');
+const watson = require('ibm-watson/sdk');
+const { IamAuthenticator } = require('ibm-watson/auth');
 const cors = require('cors')
 
 // allows environment properties to be set in a file named .env
-require('dotenv').load({ silent: true });
+require('dotenv').config({path:'angular-watson-voice/.env'});
 
 // on bluemix, enable rate-limiting and force https
 if (process.env.VCAP_SERVICES) {
@@ -35,33 +35,19 @@ if (process.env.VCAP_SERVICES) {
 app.use(express.static(__dirname + '/static'));
 app.use(cors())
 
-// token endpoints
-// **Warning**: these endpoints should probably be guarded with additional authentication & authorization for production use
-
-// speech to text token endpoint
-var sttAuthService = new watson.AuthorizationV1(
-  Object.assign(
-    {
-      username: process.env.SPEECH_TO_TEXT_USERNAME, // or hard-code credentials here
-      password: process.env.SPEECH_TO_TEXT_PASSWORD
-    },
-    vcapServices.getCredentials('speech_to_text') // pulls credentials from environment in bluemix, otherwise returns {}
-  )
-);
 app.use('/api/speech-to-text/token', function(req, res) {
-  sttAuthService.getToken(
-    {
-      url: watson.SpeechToTextV1.URL
-    },
-    function(err, token) {
-      if (err) {
-        console.log('Error retrieving token: ', err);
-        res.status(500).send('Error retrieving token');
-        return;
+  const authorization = new watson.AuthorizationV1({
+      authenticator: new IamAuthenticator({ apikey: <API_TOKEN> }),
+      url: ''
+    });
+
+    authorization.getToken(function (err, token) {
+      if (!token) {
+        console.log('error: ', err);
+      } else {
+        res.send(token);        
       }
-      res.send(token);
-    }
-  );
+    });
 });
 
 const port = process.env.PORT || process.env.VCAP_APP_PORT || 3002;
